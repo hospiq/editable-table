@@ -20,8 +20,10 @@ $.fn.editableTableWidget = function (options) {
 						.show()
 						.offset(active.offset())
 						.css(active.css(activeOptions.cloneProperties))
-						.width(active.outerWidth())
-						.height(active.outerHeight())
+						.css({
+							width: active.css('width'),
+							height: active.css('height')
+						})
 						.focus();
 					if (select) {
 						editor.select();
