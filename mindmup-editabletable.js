@@ -15,6 +15,13 @@ $.fn.editableTableWidget = function (options) {
 			showEditor = function (select) {
 				active = element.find('td:focus');
 				if (active.length) {
+					
+					// Prevent edit of the columns specified. Set columns in options: $('#table').editableTableWidget({ editor: $('<input>'), preventColumns: [ 2, 3 ] });
+					if ($.inArray(active.index() + 1, activeOptions.preventColumns) != -1) {
+						active.blur();
+						return;
+					}
+					
 					editor.val(active.text())
 						.removeClass('error')
 						.show()
