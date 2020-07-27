@@ -10,18 +10,21 @@ $.fn.editableTableWidget = function (options) {
 			activeOptions = $.extend(buildDefaultOptions(), options),
 			ARROW_LEFT = 37, ARROW_UP = 38, ARROW_RIGHT = 39, ARROW_DOWN = 40, ENTER = 13, ESC = 27, TAB = 9,
 			element = $(this),
-			editor = activeOptions.editor.css('position', 'absolute').hide().appendTo(element.parent()),
+			editor = activeOptions.editor.css('position', 'absolute').hide().insertAfter(element.parent()),
 			active,
 			showEditor = function (select) {
 				active = element.find('td:focus');
 				if (active.length) {
-					
-					// Prevent edit of the columns specified. Set columns in options: $('#table').editableTableWidget({ editor: $('<input>'), preventColumns: [ 2, 3 ] });
-					if ($.inArray(active.index() + 1, activeOptions.preventColumns) != -1) {
+					if (
+						// Prevent edit of the columns specified. Set columns in options: $('#table').editableTableWidget({ editor: $('<input>'), preventColumns: [ 2, 3 ] });
+					    activeOptions.preventColumns.includes(active.index()) ||
+						// Prevent edit of specific cells. Add the 'prevent-edit' data attribute to any cell.
+                        $(active).data('preventEdit')
+                    ) {
 						active.blur();
 						return;
 					}
-					
+
 					editor.val(active.text())
 						.removeClass('error')
 						.show()
@@ -67,7 +70,6 @@ $.fn.editableTableWidget = function (options) {
 			editor.hide();
 		}).keydown(function (e) {
 			if (e.which === ENTER) {
-				setActiveText();
 				editor.hide();
 				active.focus();
 				e.preventDefault();
