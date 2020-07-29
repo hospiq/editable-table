@@ -19,7 +19,7 @@ $.fn.editableTableWidget = function (options) {
 						// Prevent edit of the columns specified. Set columns in options: $('#table').editableTableWidget({ editor: $('<input>'), preventColumns: [ 2, 3 ] });
 					    activeOptions.preventColumns.includes(active.index()) ||
 						// Prevent edit of specific cells. Add the 'prevent-edit' data attribute to any cell.
-                        $(active).data('preventEdit')
+                        active.data('preventEdit')
                     ) {
 						active.blur();
 						return;
