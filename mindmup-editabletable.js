@@ -16,13 +16,13 @@ $.fn.editableTableWidget = function (options) {
 				active = element.find('td:focus');
 				if (active.length) {
 					if (
-						// Prevent edit of the columns specified. Set columns in options: $('#table').editableTableWidget({ editor: $('<input>'), preventColumns: [ 2, 3 ] });
+					    // Prevent edit of the columns specified. Set columns in options: $('#table').editableTableWidget({ editor: $('<input>'), preventColumns: [ 2, 3 ] });
 					    activeOptions.preventColumns.includes(active.index()) ||
-						// Prevent edit of specific cells. Add the 'prevent-edit' data attribute to any cell.
-                        active.data('preventEdit')
-                    ) {
-						active.blur();
-						return;
+					    // Prevent edit of specific cells. Add the 'prevent-edit' data attribute to any cell.
+                                            active.data('preventEdit')
+                    			) {
+					    active.blur();
+					    return;
 					}
 
 					editor.val(active.text())
